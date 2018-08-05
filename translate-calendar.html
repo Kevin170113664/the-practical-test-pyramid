@@ -1,0 +1,39 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+    google.charts.load("current", {packages: ["timeline"]});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        const container = document.getElementById('timetable');
+        const chart = new google.visualization.Timeline(container);
+        const dataTable = new google.visualization.DataTable();
+        const time = (month, day, isBegin = false) => isBegin
+            ? new Date(0, month - 1, day, 0, 0, 0)
+            : new Date(0, month - 1, day, 23, 59, 59);
+
+        dataTable.addColumn({type: 'string', id: 'Position'});
+        dataTable.addColumn({type: 'string', id: 'Name'});
+        dataTable.addColumn({type: 'date', id: 'Start'});
+        dataTable.addColumn({type: 'date', id: 'End'});
+        dataTable.addRows([
+            ['Kevin', '契约测试', time(8, 6, true), time(8, 6)],
+            ['Kevin', 'UI测试', time(8, 7, true), time(8, 7)],
+            ['Kevin', '端到端测试前言', time(8, 8, true), time(8, 8)],
+            ['Kevin', '用户界面端到端', time(8, 9, true), time(8, 9)],
+            ['Kevin', 'REST API端到端', time(8, 10, true), time(8, 10)],
+            ['Kevin', '验收测试', time(8, 11, true), time(8, 11)],
+            ['Kevin', '探索测试，测试术语', time(8, 12, true), time(8, 12)],
+            ['Kevin', '测试部署，测试重复', time(8, 13, true), time(8, 13)],
+            ['Kevin', '结论，致谢', time(8, 14, true), time(8, 14)],
+            ['Kevin', '爱干嘛干嘛', time(8, 15, true), time(8, 15)],
+        ]);
+
+        chart.draw(dataTable);
+    }
+</script>
+<head>
+    <title>金字塔实战翻译日程</title>
+</head>
+<div id="timetable" style="height: 500px;"></div>
+
