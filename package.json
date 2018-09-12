@@ -2,7 +2,7 @@
   "name": "the-practical-test-pyramid",
   "version": "1.0.0",
   "description": "Translation of 'The Practical Test Pyramid'",
-  "main": "测试金字塔实战.md",
+  "main": "bilingual.md",
   "scripts": {
     "pr": "hub pull-request -b 'Kevin170113664/the-practical-test-pyramid:master' -h 'linesh-simplicity/the-practical-test-pyramid:master' -m "
   },
