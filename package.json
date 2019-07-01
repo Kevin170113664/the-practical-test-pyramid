@@ -2,34 +2,10 @@
   "name": "the-practical-test-pyramid",
   "version": "1.0.0",
   "description": "Translation of 'The Practical Test Pyramid'",
-  "main": "bilingual.md",
-  "scripts": {
-    "pr": "hub pull-request -b 'Kevin170113664/the-practical-test-pyramid:master' -h 'linesh-simplicity/the-practical-test-pyramid:master' -m "
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kevin170113664/the-practical-test-pyramid.git"
-  },
   "author": "Linhao Li",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Kevin170113664/the-practical-test-pyramid/issues"
   },
-  "homepage": "https://github.com/Kevin170113664/the-practical-test-pyramid#readme",
-  "devDependencies": {
-    "husky": "^1.0.0-rc.14",
-    "lint-staged": "^7.2.2",
-    "prettier": "^1.12.1"
-  },
-  "lint-staged": {
-    "*.md": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
+  "homepage": "https://github.com/Kevin170113664/the-practical-test-pyramid#readme"
 }
