@@ -1459,8 +1459,12 @@ _Figure 12: Use exploratory testing to spot all quality issues that your build p
 ## 把测试放到你的部署流水线上
 
 如果你正在践行持续集成或者持续交付的实践，那么你会有一条[部署流水线](https://martinfowler.com/bliki/DeploymentPipeline.html)来在每一次提交改动时运行自动化测试。通常这个流水线会被分成几个阶段，它们会逐步建立起让你把软件部署到生产环境的自信。听了这么多不同类型的测试，你可能想进一步了解它们在部署流水线中应如何放置。要回答这个答案，你需要思考一下持续交付（实际上是[极限编程](http://www.extremeprogramming.org/values.html)和敏捷软件开发的核心价值观之一）的其中一项核心价值观：**快速反馈**。
-
+    
 > If you're using Continuous Integration or Continuous Delivery, you'll have a [Deployment Pipeline](https://martinfowler.com/bliki/DeploymentPipeline.html) in place that will run automated tests every time you make a change to your software. Usually this pipeline is split into several stages that gradually give you more confidence that your software is ready to be deployed to production. Hearing about all these different kinds of tests you're probably wondering how you should place them within your deployment pipeline. To answer this you should just think about one of the very foundational values of Continuous Delivery (indeed one of the core [values of Extreme Programming](http://www.extremeprogramming.org/values.html) and agile software development): **Fast Feedback**.
+ 
+TODO 待翻译
+
+> A good build pipeline tells you that you messed up as quick as possible. You don't want to wait an hour just to find out that your latest change broke some simple unit tests. Chances are that you've probably gone home already if your pipeline takes that long to give you that feedback. You could get this information within a matter of seconds, maybe a few minutes by putting the fast running tests in the earlier stages of your pipeline. Conversely you put the longer running tests - usually the ones with a broader scope - in the later stages to not defer the feedback from the fast-running tests. You see that defining the stages of your deployment pipeline is not driven by the types of tests but rather by their speed and scope. With that in mind it can be a very reasonable decision to put some of the really narrowly-scoped and fast-running integration tests in the same stage as your unit tests - simply because they give you faster feedback and not because you want to draw the line along the formal type of your tests. 
 
 ## 避免测试重复
 
