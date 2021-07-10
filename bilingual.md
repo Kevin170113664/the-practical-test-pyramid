@@ -424,7 +424,7 @@ _图 5：一个用测试替身隔绝了外部依赖的典型单元测试_
 
 > Whenever I find myself in this situation I usually come to the conclusion that the class I'm testing is already too complex. It's doing too much and violates the single responsibility principle - the S of the five SOLID principles.
 
-我的解决方案通常是把原来的类拆分成两个类来写。通常来说一两分钟就能找到按照职责拆分的办法，把一个大型类拆分为两个小一些的类。我会把我想要测试的私有方法移到新的类去然后让旧的类去引用它。哈，现在我想测的私有方法变成公有的了，这样就可以很简单的去测试它啦。在此之上，我也改善了代码结构使之遵循单一职责原则。
+我的解决方案通常是把原来的类拆分成两个类来写。通常来说一两分钟就能找到按照职责拆分的办法，把一个大型类拆分为两个小一些的类。我会把我想要测试的私有方法移到新的类然后让旧的类去引用它。哈，现在我想测的私有方法变成公有的了，这样就可以很简单的去测试它啦。在此之上，我也改善了代码结构使之遵循单一职责原则。
 
 > The solution that often works for me is to split the original class into two classes. It often only takes one or two minutes of thinking to find a good way to cut the one big class into two smaller classes with individual responsibility. I move the private method (that I urgently want to test) to the new class and let the old class call the new method. Voilà, my awkward-to-test private method is now public and can be tested easily. On top of that I have improved the structure of my code by adhering to the single responsibility principle.
 
