@@ -512,11 +512,9 @@ _如果我的输入是 x 和 y，那么这个方法会先调用 A 类，然后�
 
 > This pattern can be applied to other, more high-level tests as well. In every case they ensure that your tests remain easy and consistent to read. On top of that tests written with this structure in mind tend to be shorter and more expressive.
 
-todo 待翻译的内容
-
 #### 特化的测试工具
 
-##### Specialised Test Helpers
+不管处在应用架构的哪一层，能为整个代码库书写单元测试都是一件美妙的事情。这个例子中展示了一个简单的`controller`单元测试。不幸的是，当代码运行到`controller`的时候，已经是非常靠后了，因为`Spring MVC`的`controller`用了很多注解声明了监听的路径，HTTP动词(GET，POST等)，URL中的参数和`query`的参数等。在测试里简单的引用一个`controller`方法并不能测到这些至关重要的东西。当然事情也有好的一面，Spring那些人搞了一个很棒的测试工具来写优雅的`controller`测试。去看看`MockMVC`这个库，它让你可以发送假的`request`去`controller`然后让你验证是不是所有事情都是如你所愿的。我已经在示例代码库里包含了这样的一个例子。很多框架都能成为你优雅测试的一大助力。看一下你所使用框架的文档，看看有没有官方指定的测试框架。
 
 > It's a thing of beauty that you can write unit tests for your entire codebase, regardless of what layer of your application's architecture you're on. The example shows a simple unit test for a controller. Unfortunately, when it comes to Spring's controllers there's a downside to this approach: Spring MVC's controller make heavy use of annotations to declare which paths they're listening on, which HTTP verbs to use, which parameters they parse from the URL path or query params and so on. Simply invoking a controller's method within your unit tests won't test all of these crucial things. Luckily, the Spring folks came up with a nice test helper you can use to write better controller tests. Make sure to check out MockMVC. It gives you a nice DSL you can use to fire fake requests against your controller and check that everything's cool. I've included an example in the sample codebase. A lot of frameworks offer test helpers to make testing specific aspects of your codebase more pleasant. Check out the documentation of your framework of choice and see if it offers any useful helpers for your automated tests.
 
