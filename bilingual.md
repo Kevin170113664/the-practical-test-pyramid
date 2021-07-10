@@ -408,6 +408,18 @@ _图 5：一个用测试替身隔绝了外部依赖的典型单元测试_
 
 > Once you got a hang of writing unit tests you will become more and more fluent in writing them. Stub out external collaborators, set up some input data, call your subject under test and check that the returned value is what you expected. Look into [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) and let your unit tests guide your development; if applied correctly it can help you get into a great flow and come up with a good and maintainable design while automatically producing a comprehensive and fully automated test suite. Still, it's no silver bullet. Go ahead, give it a real chance and see if it feels right for you.
 
+todo 待翻译
+
+##### But I Really Need to Test This Private Method
+
+> If you ever find yourself in a situation where you really really need to test a private method you should take a step back and ask yourself why.
+
+> I'm pretty sure this is more of a design problem than a scoping problem. Most likely you feel the need to test a private method because it's complex and testing this method through the public interface of the class requires a lot of awkward setup.
+
+> Whenever I find myself in this situation I usually come to the conclusion that the class I'm testing is already too complex. It's doing too much and violates the single responsibility principle - the S of the five SOLID principles.
+
+> The solution that often works for me is to split the original class into two classes. It often only takes one or two minutes of thinking to find a good way to cut the one big class into two smaller classes with individual responsibility. I move the private method (that I urgently want to test) to the new class and let the old class call the new method. Voilà, my awkward-to-test private method is now public and can be tested easily. On top of that I have improved the structure of my code by adhering to the single responsibility principle.
+
 #### 应该测试什么？
 
 单元测试有个好处，就是你可以为所有的产品代码类写单元测试，而不需要管它们的功能如何，或者它们在内部结构中属于哪个层次。你可以对 controller 进行单元测试，也可以用同样的方式对 repository、领域类或者文件读写类进行单元测试。良好的开端，从坚持**一个实现类就有一个测试类**的法则开始。
@@ -491,6 +503,12 @@ _如果我的输入是 x 和 y，那么这个方法会先调用 A 类，然后�
 这种模式也可以应用于其他更高层次的测试。在任何情况下，它们都能让你的测试保持一致，易于阅读。除此之外，使用这种结构写出来的测试，往往更简短，更具表达力。
 
 > This pattern can be applied to other, more high-level tests as well. In every case they ensure that your tests remain easy and consistent to read. On top of that tests written with this structure in mind tend to be shorter and more expressive.
+
+todo 待翻译的内容
+
+##### Specialised Test Helpers
+
+> It's a thing of beauty that you can write unit tests for your entire codebase, regardless of what layer of your application's architecture you're on. The example shows a simple unit test for a controller. Unfortunately, when it comes to Spring's controllers there's a downside to this approach: Spring MVC's controller make heavy use of annotations to declare which paths they're listening on, which HTTP verbs to use, which parameters they parse from the URL path or query params and so on. Simply invoking a controller's method within your unit tests won't test all of these crucial things. Luckily, the Spring folks came up with a nice test helper you can use to write better controller tests. Make sure to check out MockMVC. It gives you a nice DSL you can use to fire fake requests against your controller and check that everything's cool. I've included an example in the sample codebase. A lot of frameworks offer test helpers to make testing specific aspects of your codebase more pleasant. Check out the documentation of your framework of choice and see if it offers any useful helpers for your automated tests.
 
 #### 实现一个单元测试
 
