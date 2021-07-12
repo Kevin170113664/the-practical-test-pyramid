@@ -412,19 +412,19 @@ _图 5：一个用测试替身隔绝了外部依赖的典型单元测试_
 
 ##### 我真的很需要测试私有方法
 
-每当你发现自己陷入一个真的很需要测试私有方法的困境中时，请先后退一步，问问自己何以陷入这样的困境。
+如果你发现自己陷入了真的很需要测试私有方法这个困境中时，请先后退一步问问自己，是什么导致了你想要测试私有的方法。
 
 > If you ever find yourself in a situation where you really really need to test a private method you should take a step back and ask yourself why.
 
-我很肯定，这背后更可能是一个设计问题，而不仅仅是方法可见性带来的问题。很有可能你需要测试私有方法的原因是方法过于复杂，如果通过类的公开接口来测试它，将需要做一大堆前置准备。
+我很肯定，这背后更可能是一个设计问题，而不仅仅是方法可见性的问题。很可能你觉得需要测试私有方法的原因是方法过于复杂，并且如果通过类的公开接口来测试它，需要做一大堆麻烦的准备工作。
 
 > I'm pretty sure this is more of a design problem than a scoping problem. Most likely you feel the need to test a private method because it's complex and testing this method through the public interface of the class requires a lot of awkward setup.
 
-每当我发现自己身陷类似困境时，我通常会得出这样的结论：我要测试的这个类已经变得太复杂了。这个类肯定是做了太多事情，违背了SOLID原则中的单一职责原则。
+每当我发现自己身陷类似困境时，我通常会得出这样的结论：我要测试的这个类已经过于复杂了。这个类肯定是做了太多事情，违背了SOLID原则中的单一职责原则。
 
 > Whenever I find myself in this situation I usually come to the conclusion that the class I'm testing is already too complex. It's doing too much and violates the single responsibility principle - the S of the five SOLID principles.
 
-我的解决方案通常是把原来的类拆分成两个类。通常来说一两分钟就能找到按照职责拆分的办法，把一个大类拆分为两个小一些的类。我会把我原来急于想测试的私有方法搬移到新的类中去，然后让旧类去调用这个新类上的方法。哈，现在这个超级难测试的私有办法变成公有的了，对它添加测试变得易如反掌。除此之外，我还改善了代码结构，使之遵循单一职责原则。
+我的解决方案通常是把原来的类拆分成两个类。通常来说，花上一两分钟思考就能找到按照职责拆分的办法，把一个大类拆分为两个小一些的类。我会把我原来急于想测试的私有方法搬移到新的类中，然后让旧类去调用这个新类上的方法。哈，现在这个超级难测试的私有办法变成公有的了，对它添加测试变得易如反掌。除此之外，我还改善了代码结构，使之遵循单一职责原则。
 
 > The solution that often works for me is to split the original class into two classes. It often only takes one or two minutes of thinking to find a good way to cut the one big class into two smaller classes with individual responsibility. I move the private method (that I urgently want to test) to the new class and let the old class call the new method. Voilà, my awkward-to-test private method is now public and can be tested easily. On top of that I have improved the structure of my code by adhering to the single responsibility principle.
 
@@ -602,7 +602,7 @@ public class ExampleControllerTest {
 
 #### 专用的测试工具
 
-不管处在应用架构的哪一层，能为整个代码库书写单元测试都是一件美妙的事情。这个例子展示了一个简单的`controller`单元测试。遗憾的是，用这种方法测试Spring中的controller有缺点。Spring MVC中的controller大量依赖于注解来声明其监听的路径、使用的HTTP方法、从URL或query参数中解析的参数等等。在单元测试中直接调用一个`controller`方法无法测试到这些至关重要的东西。幸运的是，Spring团队提供了一个很棒的测试工具，它可以帮助你写出更好的单元测试。这个工具叫MockMVC，一定要记得去看看。它提供了一套好用的DSL，你可以用它给controller发送假的请求并验证一切是否运转良好。我已经在示例代码库里加入了这样的一个例子。很多框架都提供了对应的测试工具，帮助你更优雅地对代码库的特定层面进行测试。看看你所使用框架的文档，看看它们是否为你编写自动化测试提供了有用的工具。
+不管处在应用架构的哪一层，都能为整个代码库编写单元测试——这是一件美妙的事情。这个例子展示了一个简单的controller单元测试。遗憾的是，用这种方法测试Spring中的controller有个缺陷：Spring MVC中的controller大量依赖于注解来声明其监听的路径、使用的HTTP方法、从URL或query参数中解析的参数等等。在单元测试中直接调用一个controller方法无法测试到这些至关重要的东西。幸运的是，Spring团队提供了一个很棒的测试工具，它可以帮助你写出更好的单元测试。这个工具库叫MockMVC，一定记得去看看。它提供了一套好用的DSL，你可以用它给controller发送假的请求并验证一切是否运转良好。我已经在示例代码库里加入了这样的一个例子。很多框架都提供了专门的测试工具，帮助你更优雅地对代码库的特定层面进行测试。看看你所使用框架的文档，看看它们是否为你编写自动化测试提供了有用的工具。
 
 > It's a thing of beauty that you can write unit tests for your entire codebase, regardless of what layer of your application's architecture you're on. The example shows a simple unit test for a controller. Unfortunately, when it comes to Spring's controllers there's a downside to this approach: Spring MVC's controller make heavy use of annotations to declare which paths they're listening on, which HTTP verbs to use, which parameters they parse from the URL path or query params and so on. Simply invoking a controller's method within your unit tests won't test all of these crucial things. Luckily, the Spring folks came up with a nice test helper you can use to write better controller tests. Make sure to check out MockMVC. It gives you a nice DSL you can use to fire fake requests against your controller and check that everything's cool. I've included an example in the sample codebase. A lot of frameworks offer test helpers to make testing specific aspects of your codebase more pleasant. Check out the documentation of your framework of choice and see if it offers any useful helpers for your automated tests.
 
@@ -1488,7 +1488,7 @@ _Figure 12: Use exploratory testing to spot all quality issues that your build p
     
 > If you're using Continuous Integration or Continuous Delivery, you'll have a [Deployment Pipeline](https://martinfowler.com/bliki/DeploymentPipeline.html) in place that will run automated tests every time you make a change to your software. Usually this pipeline is split into several stages that gradually give you more confidence that your software is ready to be deployed to production. Hearing about all these different kinds of tests you're probably wondering how you should place them within your deployment pipeline. To answer this you should just think about one of the very foundational values of Continuous Delivery (indeed one of the core [values of Extreme Programming](http://www.extremeprogramming.org/values.html) and agile software development): **Fast Feedback**.
 
-好的构建流水线能在构建失败时第一时间通知你。你一定不想等了一小时后发现，最新的改动因为几个简单的单元测试挂掉了。真实的情况是，如果流水线真的需要这么长时间才能给你反馈，你可能早就已经等不及回家了。你可以将运行快速的测试放到流水线更靠前的阶段执行，这样你就可以在数秒钟或几分钟内得到反馈。相对地，把那些运行时间较长的测试——通常是覆盖范围更广的测试——放到流水线中靠后的阶段执行，以免影响你从运行快速的测试中更快地获取反馈。你可能发现了，部署流水线中不同阶段的区分不是由测试类型决定的，而是取决于测试的运行速度和范围。记住这一点后，将一些覆盖范围有限、运行速度又很快的集成测试与单元测试一起放在同一个阶段，就是很合理的决策了。你的目的是要更快速地获得反馈，而不是在各种类型的测试中间划出清晰的界线来。
+好的构建流水线能在构建失败时第一时间通知你。你一定不想等了一小时后发现，最新的改动因为几个简单的单元测试挂掉了。真实的情况是，如果流水线真的需要这么长时间才能给你反馈，你可能早就已经等不及回家了。你可以将运行快速的测试放到流水线更靠前的阶段执行，这样你就可以在数秒钟或几分钟内得到反馈。相对地，把那些运行时间较长的测试——通常是覆盖范围更广的测试——放到流水线中靠后的阶段执行，以免影响你从运行快速的测试中更快地获取反馈。你可能发现了，部署流水线中不同阶段的区分不是由测试类型决定的，而是取决于测试的运行速度和覆盖范围。记住这一点后，将一些覆盖范围有限、运行速度又很快的集成测试与单元测试一起放在同一个阶段，就是很合理的决策了。你的目的是要更快速地获得反馈，而不是在各种类型的测试中间划出清晰的界线来。
 
 > A good build pipeline tells you that you messed up as quick as possible. You don't want to wait an hour just to find out that your latest change broke some simple unit tests. Chances are that you've probably gone home already if your pipeline takes that long to give you that feedback. You could get this information within a matter of seconds, maybe a few minutes by putting the fast running tests in the earlier stages of your pipeline. Conversely you put the longer running tests - usually the ones with a broader scope - in the later stages to not defer the feedback from the fast-running tests. You see that defining the stages of your deployment pipeline is not driven by the types of tests but rather by their speed and scope. With that in mind it can be a very reasonable decision to put some of the really narrowly-scoped and fast-running integration tests in the same stage as your unit tests - simply because they give you faster feedback and not because you want to draw the line along the formal type of your tests. 
 
