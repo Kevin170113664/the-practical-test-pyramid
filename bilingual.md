@@ -48,7 +48,7 @@ Ham 是德国 ThoughtWorks 的一名软件开发和咨询师。由于厌倦了�
 
 * 测试架构
 
-* 特化的测试工具
+* 专用的测试工具
 
 * 实现一个单元测试
 
@@ -600,13 +600,9 @@ public class ExampleControllerTest {
 
 > The second test works similarly but tests the scenario where the tested method does not find a person for the given parameter.
 
-#### 特化的测试工具
+#### 专用的测试工具
 
-不管处在应用架构的哪一层，能为整个代码库书写单元测试都是一件美妙的事情。
-
-这个例子中展示了一个简单的`controller`单元测试。不幸的是，当代码运行到`controller`的时候，已经是非常靠后了，因为`Spring MVC`的`controller`用了很多注解声明了监听的路径，HTTP动词(GET，POST等)，URL中的参数和`query`的参数等。在测试里简单的引用一个`controller`方法并不能测到这些至关重要的东西。当然事情也有好的一面，Spring那些人搞了一个很棒的测试工具来写优雅的`controller`测试。去看看`MockMVC`这个库，它让你可以发送假的`request`去`controller`然后让你验证是不是所有事情都是如你所愿的。我已经在示例代码库里包含了这样的一个例子。很多框架都能成为你优雅测试的一大助力。看一下你所使用框架的文档，看看有没有官方指定的测试框架。
-
-
+不管处在应用架构的哪一层，能为整个代码库书写单元测试都是一件美妙的事情。这个例子展示了一个简单的`controller`单元测试。遗憾的是，用这种方法测试Spring中的controller有缺点。Spring MVC中的controller大量依赖于注解来声明其监听的路径、使用的HTTP方法、从URL或query参数中解析的参数等等。在单元测试中直接调用一个`controller`方法无法测试到这些至关重要的东西。幸运的是，Spring团队提供了一个很棒的测试工具，它可以帮助你写出更好的单元测试。这个工具叫MockMVC，一定要记得去看看。它提供了一套好用的DSL，你可以用它给controller发送假的请求并验证一切是否运转良好。我已经在示例代码库里加入了这样的一个例子。很多框架都提供了对应的测试工具，帮助你更优雅地对代码库的特定层面进行测试。看看你所使用框架的文档，看看它们是否为你编写自动化测试提供了有用的工具。
 
 > It's a thing of beauty that you can write unit tests for your entire codebase, regardless of what layer of your application's architecture you're on. The example shows a simple unit test for a controller. Unfortunately, when it comes to Spring's controllers there's a downside to this approach: Spring MVC's controller make heavy use of annotations to declare which paths they're listening on, which HTTP verbs to use, which parameters they parse from the URL path or query params and so on. Simply invoking a controller's method within your unit tests won't test all of these crucial things. Luckily, the Spring folks came up with a nice test helper you can use to write better controller tests. Make sure to check out MockMVC. It gives you a nice DSL you can use to fire fake requests against your controller and check that everything's cool. I've included an example in the sample codebase. A lot of frameworks offer test helpers to make testing specific aspects of your codebase more pleasant. Check out the documentation of your framework of choice and see if it offers any useful helpers for your automated tests.
 
