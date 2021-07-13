@@ -410,7 +410,7 @@ _图 5：一个用测试替身隔绝了外部依赖的典型单元测试_
 
 > Once you got a hang of writing unit tests you will become more and more fluent in writing them. Stub out external collaborators, set up some input data, call your subject under test and check that the returned value is what you expected. Look into [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) and let your unit tests guide your development; if applied correctly it can help you get into a great flow and come up with a good and maintainable design while automatically producing a comprehensive and fully automated test suite. Still, it's no silver bullet. Go ahead, give it a real chance and see if it feels right for you.
 
-#### 应该测试什么？
+#### 测试什么？
 
 单元测试有个好处，就是你可以为所有的产品代码类写单元测试，而不需要管它们的功能如何，或者它们在内部结构中属于哪个层次。你可以对 controller 进行单元测试，也可以用同样的方式对 repository、领域类或者文件读写类进行单元测试。良好的开端，从坚持**一个实现类就有一个测试类**的法则开始。
 
