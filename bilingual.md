@@ -42,15 +42,15 @@ Ham 是德国 ThoughtWorks 的一名软件开发和咨询师。由于厌倦了�
 
 * 模拟和打桩
 
-* 我真的很需要测试私有方法
-
 * 测试什么？
+
+* 我真的很需要测试私有方法
 
 * 测试架构
 
-* 专用的测试工具
-
 * 实现一个单元测试
+
+* 专用的测试工具
 
 集成测试
 
@@ -410,24 +410,6 @@ _图 5：一个用测试替身隔绝了外部依赖的典型单元测试_
 
 > Once you got a hang of writing unit tests you will become more and more fluent in writing them. Stub out external collaborators, set up some input data, call your subject under test and check that the returned value is what you expected. Look into [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) and let your unit tests guide your development; if applied correctly it can help you get into a great flow and come up with a good and maintainable design while automatically producing a comprehensive and fully automated test suite. Still, it's no silver bullet. Go ahead, give it a real chance and see if it feels right for you.
 
-##### 我真的很需要测试私有方法
-
-如果你发现自己陷入了真的很需要测试私有方法这个困境中时，请先后退一步问问自己，是什么导致了你想要测试私有的方法。
-
-> If you ever find yourself in a situation where you really really need to test a private method you should take a step back and ask yourself why.
-
-我很肯定，这背后更可能是一个设计问题，而不仅仅是方法可见性的问题。很可能你觉得需要测试私有方法的原因是方法过于复杂，并且如果通过类的公开接口来测试它，需要做一大堆麻烦的准备工作。
-
-> I'm pretty sure this is more of a design problem than a scoping problem. Most likely you feel the need to test a private method because it's complex and testing this method through the public interface of the class requires a lot of awkward setup.
-
-每当我发现自己身陷类似困境时，我通常会得出这样的结论：我要测试的这个类已经过于复杂了。这个类肯定是做了太多事情，违背了SOLID原则中的单一职责原则。
-
-> Whenever I find myself in this situation I usually come to the conclusion that the class I'm testing is already too complex. It's doing too much and violates the single responsibility principle - the S of the five SOLID principles.
-
-我的解决方案通常是把原来的类拆分成两个类。通常来说，花上一两分钟思考就能找到按照职责拆分的办法，把一个大类拆分为两个小一些的类。我会把我原来急于想测试的私有方法搬移到新的类中，然后让旧类去调用这个新类上的方法。哈，现在这个超级难测试的私有办法变成公有的了，对它添加测试变得易如反掌。除此之外，我还改善了代码结构，使之遵循单一职责原则。
-
-> The solution that often works for me is to split the original class into two classes. It often only takes one or two minutes of thinking to find a good way to cut the one big class into two smaller classes with individual responsibility. I move the private method (that I urgently want to test) to the new class and let the old class call the new method. Voilà, my awkward-to-test private method is now public and can be tested easily. On top of that I have improved the structure of my code by adhering to the single responsibility principle.
-
 #### 应该测试什么？
 
 单元测试有个好处，就是你可以为所有的产品代码类写单元测试，而不需要管它们的功能如何，或者它们在内部结构中属于哪个层次。你可以对 controller 进行单元测试，也可以用同样的方式对 repository、领域类或者文件读写类进行单元测试。良好的开端，从坚持**一个实现类就有一个测试类**的法则开始。
@@ -485,6 +467,24 @@ _如果我的输入是 x 和 y，那么这个方法会先调用 A 类，然后�
 确实你应该测试公共接口。但是更重要的是，**不要去测试微不足道的代码**。别担心，[Kent Beck 说这样是 OK 的](https://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests/)。你不会因为测试 getter，setter 抑或是其他简单的实现（比如没有任何条件逻辑的实现）而得到任何价值。把时间省出来，你就能多参加一个会了，万岁！       
 
 > Yes, you should test the public interface. More importantly, however, you **don't test trivial code**. Don't worry, [Kent Beck said it's ok](https://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests/). You won't gain anything from testing simple getters or setters or other trivial implementations (e.g. without any conditional logic). Save the time, that's one more meeting you can attend, hooray!
+
+##### 我真的很需要测试私有方法
+
+如果你发现自己陷入了真的很需要测试私有方法这个困境中时，请先后退一步问问自己，是什么导致了你想要测试私有的方法。
+
+> If you ever find yourself in a situation where you really really need to test a private method you should take a step back and ask yourself why.
+
+我很肯定，这背后更可能是一个设计问题，而不仅仅是方法可见性的问题。很可能你觉得需要测试私有方法的原因是方法过于复杂，并且如果通过类的公开接口来测试它，需要做一大堆麻烦的准备工作。
+
+> I'm pretty sure this is more of a design problem than a scoping problem. Most likely you feel the need to test a private method because it's complex and testing this method through the public interface of the class requires a lot of awkward setup.
+
+每当我发现自己身陷类似困境时，我通常会得出这样的结论：我要测试的这个类已经过于复杂了。这个类肯定是做了太多事情，违背了SOLID原则中的单一职责原则。
+
+> Whenever I find myself in this situation I usually come to the conclusion that the class I'm testing is already too complex. It's doing too much and violates the single responsibility principle - the S of the five SOLID principles.
+
+我的解决方案通常是把原来的类拆分成两个类。通常来说，花上一两分钟思考就能找到按照职责拆分的办法，把一个大类拆分为两个小一些的类。我会把我原来急于想测试的私有方法搬移到新的类中，然后让旧类去调用这个新类上的方法。哈，现在这个超级难测试的私有办法变成公有的了，对它添加测试变得易如反掌。除此之外，我还改善了代码结构，使之遵循单一职责原则。
+
+> The solution that often works for me is to split the original class into two classes. It often only takes one or two minutes of thinking to find a good way to cut the one big class into two smaller classes with individual responsibility. I move the private method (that I urgently want to test) to the new class and let the old class call the new method. Voilà, my awkward-to-test private method is now public and can be tested easily. On top of that I have improved the structure of my code by adhering to the single responsibility principle.
 
 #### 测试结构
 
